@@ -26,7 +26,13 @@ export const ViewCampaign: React.FC<Props> = ({
 }) => {
   const address = useAddress();
 
-  const { owner, title, donations: _donations, isCancelled } = campaign;
+  const {
+    owner,
+    title,
+    donations: _donations,
+    isCancelled,
+    isCompleted,
+  } = campaign;
 
   const donations = _donations.map((e) =>
     parseFloat(ethers.utils.formatEther(e.toString()))
@@ -38,7 +44,7 @@ export const ViewCampaign: React.FC<Props> = ({
     <div title="" className="flex flex-col items-start gap-4">
       <Heading color="gray.300">{title}</Heading>
 
-      {isMyCampaign && !isCancelled && (
+      {isMyCampaign && !isCancelled && !isCompleted && (
         <EditControls {...{ id, fullUrl, contract }} />
       )}
 

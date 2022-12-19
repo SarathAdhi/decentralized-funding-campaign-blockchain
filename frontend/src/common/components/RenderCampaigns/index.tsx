@@ -1,6 +1,6 @@
 import { Campaign } from "types/campaigns";
 import { CampaignCard } from "@components/CampaignCard";
-import { parseUrl } from "@utils/parse";
+import { daysLeft, parseUrl } from "@utils/parse";
 import { CampaignLoadingSkeleton } from "@components/CampaignLoadingSkeleton";
 import { useState } from "react";
 import { Heading } from "@chakra-ui/react";
@@ -21,7 +21,11 @@ type Props = {
 export const RenderCampaigns: React.FC<Props> = ({ campaigns, isLoading }) => {
   const [currentSelectedTab, setCurrentSelectedTab] = useState("All");
 
-  const _campaigns = [...campaigns].reverse();
+  const editedCampaigns = campaigns.map((e) =>
+    daysLeft(e.endDate.toNumber()) <= 0 ? { ...e, isCompleted: true } : e
+  );
+
+  const _campaigns = [...editedCampaigns].reverse();
 
   const filteredCampaigns = _campaigns.filter((e) =>
     currentSelectedTab === "Active"

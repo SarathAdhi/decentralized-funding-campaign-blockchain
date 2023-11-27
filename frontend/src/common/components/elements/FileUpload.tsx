@@ -1,8 +1,8 @@
 import { FileUploader } from "react-drag-drop-files";
 import { InputProps, Spinner } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { web3Client } from "@utils/.";
 import { useToast } from "@chakra-ui/react";
+import { useStorage } from "@thirdweb-dev/react";
 
 type Props = {
   label?: string;
@@ -18,6 +18,8 @@ export const FileUpload: React.FC<Props> = ({
   setValue,
   ...rest
 }) => {
+  const storage = useStorage();
+
   const [isImageUploading, setIsImageUploading] = useState(false);
 
   const toast = useToast();
@@ -25,12 +27,10 @@ export const FileUpload: React.FC<Props> = ({
   async function handleChange(file: File) {
     setIsImageUploading(true);
 
-    const fileName = file.name;
+    const data = await storage?.upload(file);
+    const fileUrl = data?.split("://")[1];
 
-    const client = web3Client();
-    const cid = await client.put([file] as any);
-
-    const imageLink = `https://${cid}.ipfs.w3s.link/${fileName}`;
+    const imageLink = `https://ipfs.io/ipfs/${fileUrl}`;
 
     setValue(imageLink);
     setIsImageUploading(false);

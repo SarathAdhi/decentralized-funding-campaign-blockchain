@@ -49,7 +49,7 @@ export const BottomSection: React.FC<Props> = ({
     setIsDonationTransactionLoading(true);
 
     try {
-      await contract?.call("donateToCampaign", id, {
+      await contract?.call("donateToCampaign", [id], {
         value: ethers.utils.parseEther(amount),
       });
 

@@ -58,14 +58,16 @@ const CreateCampaignPage = () => {
     e.preventDefault();
 
     try {
-      await createCampaign([
-        formData.name,
-        formData.title,
-        formData.description,
-        formData.image,
-        ethers.utils.parseUnits(formData.target, 18),
-        new Date(formData.date).getTime(),
-      ]);
+      await createCampaign({
+        args: [
+          formData.name,
+          formData.title,
+          formData.description,
+          formData.image,
+          ethers.utils.parseUnits(formData.target, 18),
+          new Date(formData.date).getTime(),
+        ],
+      });
 
       setFormData(initialValues);
       toast({

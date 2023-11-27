@@ -21,7 +21,7 @@ export const EditControls: React.FC<Props> = ({ id, fullUrl, contract }) => {
 
   async function cancelCampaign() {
     try {
-      await _cancelCampaign([id]);
+      await _cancelCampaign({ args: [id] });
 
       toast({
         title: "Transaction success",

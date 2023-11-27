@@ -23,7 +23,7 @@ const ViewCampaignPage = () => {
   const { data, isLoading, refetch }: ReadContractProps = useContractRead(
     contract,
     "getCampaign",
-    id
+    [id]
   );
 
   if (isLoading) return <LoadingPage />;

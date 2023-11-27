@@ -71,7 +71,10 @@ export const Topbar = () => {
             bgColor="orange.600"
             _hover={{ bgColor: "orange.500" }}
             _active={{ bgColor: "orange.400" }}
-            onClick={!address ? connect : disconnect}
+            onClick={() => {
+              if (!address) connect();
+              else disconnect();
+            }}
           >
             {!address ? "Connect Wallet" : "Disconnect Wallet"}
           </Button>
@@ -121,7 +124,12 @@ export const Topbar = () => {
               />
 
               <div className="mt-2">
-                <Button onClick={!address ? connect : disconnect}>
+                <Button
+                  onClick={() => {
+                    if (!address) connect();
+                    else disconnect();
+                  }}
+                >
                   {!address ? "Connect Wallet" : "Disconnect Wallet"}
                 </Button>
               </div>
